@@ -505,7 +505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69359d1f9c491d347bc06eb75b708a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalMesh: {fileID: 4300000, guid: 01ede2192a6dd4c4b90b9494088d234a, type: 3}
+  originalMesh: {fileID: 4300006, guid: 01ede2192a6dd4c4b90b9494088d234a, type: 3}
   otherMesh: {fileID: 4300000, guid: df79493c13242dd428d6c528aa9c5390, type: 3}
   areaSize: 10
   density: 50
