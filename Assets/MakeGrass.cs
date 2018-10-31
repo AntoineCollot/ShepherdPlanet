@@ -18,16 +18,6 @@ public class MakeGrass : MonoBehaviour {
 
     public Mesh result;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     [ContextMenu("Build Mesh")]
     public void BuildMesh()
     {
@@ -36,10 +26,17 @@ public class MakeGrass : MonoBehaviour {
         for (int i = 0; i < meshCount; i++)
         {
             combineInstances[i].mesh = originalMesh;
-            float randomAngle = 2 * Mathf.PI * Random.Range(0, 1.0f);
-            float randomDist = Curves.QuadEaseOut(0,areaSize,Random.Range(0, 1.0f));
 
-            Matrix4x4 matrix = Matrix4x4.TRS(new Vector3(Mathf.Cos(randomAngle) * randomDist, 0, Mathf.Sin(randomAngle) * randomDist), Quaternion.identity, Vector3.one);
+            //Find a random position in the circle.
+            //We do this this way instead of getting a random direction and random distance so we get an even density across the area, otherwise they get stacked at the center
+            Vector3 randomPosition;
+            do
+            {
+                randomPosition = new Vector3(Random.Range(-areaSize, areaSize), 0, Random.Range(-areaSize, areaSize)) * 0.5f;
+            } while (randomPosition.magnitude > areaSize * 0.5f);
+
+
+            Matrix4x4 matrix = Matrix4x4.TRS(randomPosition, Quaternion.identity, Vector3.one);
             combineInstances[i].transform = matrix;
         }
 
@@ -55,7 +52,6 @@ public class MakeGrass : MonoBehaviour {
         AssetDatabase.CreateAsset(mesh, "Assets/generatedMesh.asset");
         AssetDatabase.SaveAssets();
     }
-
 
     Mesh CopyMesh(Mesh mesh)
     {
