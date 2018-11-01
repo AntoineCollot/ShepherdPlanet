@@ -5,23 +5,34 @@ using UnityEngine;
 
 public class MakeGrass : MonoBehaviour {
 
+    [Header("Main Settings")]
+
     [SerializeField]
     Mesh originalMesh;
 
-
-    [SerializeField]
-    Mesh otherMesh;
-
-    public float areaSize;
+    public float areaRadius;
 
     public float density;
+
+    public float grassSize = 1;
+
+    [Header("Randomization")]
+
+    [Range(0, 1)]
+    public float randomRotation;
+
+    [Range(0,1)]
+    public float randomSize;
 
     public Mesh result;
 
     [ContextMenu("Build Mesh")]
     public void BuildMesh()
     {
-        int meshCount = (int)(2 * Mathf.PI * areaSize * density);
+        int meshCount = (int)(density * 2 * Mathf.PI * areaRadius * areaRadius);
+        print("Area : " + 2 * Mathf.PI * areaRadius * areaRadius);
+        print(meshCount);
+        print(meshCount * 9);
         CombineInstance[] combineInstances = new CombineInstance[meshCount];
         for (int i = 0; i < meshCount; i++)
         {
@@ -32,11 +43,11 @@ public class MakeGrass : MonoBehaviour {
             Vector3 randomPosition;
             do
             {
-                randomPosition = new Vector3(Random.Range(-areaSize, areaSize), 0, Random.Range(-areaSize, areaSize)) * 0.5f;
-            } while (randomPosition.magnitude > areaSize * 0.5f);
+                randomPosition = new Vector3(Random.Range(-areaRadius, areaRadius), 0, Random.Range(-areaRadius, areaRadius));
+            } while (randomPosition.magnitude > areaRadius);
 
 
-            Matrix4x4 matrix = Matrix4x4.TRS(randomPosition, Quaternion.identity, Vector3.one);
+            Matrix4x4 matrix = Matrix4x4.TRS(randomPosition, Quaternion.Slerp(Quaternion.identity,Random.rotation,randomRotation), Vector3.one * grassSize * Random.Range(1- randomSize,1+ randomSize));
             combineInstances[i].transform = matrix;
         }
 

@@ -5,8 +5,8 @@ Shader "Toon/InteractiveGrass" {
 		_Ramp ("Toon Ramp (RGB)", 2D) = "gray" {}
 		_Radius("Bending Radius", Float) = 1
 			_Displacement("Displacement",Float) = 1.75
-			_Rigidness("Rigidness",Range(0,50)) = 1.3
-			_Frenquency("Wave Frenquecy",Range(0,50)) = 0.4
+			_Rigidness("Rigidness",Range(0,10)) = 1.3
+			_Frenquency("Wave Frenquecy",Range(0,10)) = 0.4
 			_Sway("Max Sway",Range(0,1)) = 0.1
 	}
 
@@ -61,7 +61,7 @@ void vert(inout appdata_full v) {
 	float3 worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
 
 	//Wobbling
-	float2 sway = float2(sin(worldPos.x / _Rigidness + _Time.x * _Frenquency) *  v.color.r, sin(worldPos.z / _Rigidness + _Time.z * _Frenquency) *  v.color.r);
+	float2 sway = float2(sin(worldPos.x / _Rigidness + _Time.z * _Frenquency) *  v.color.r, sin(worldPos.z / _Rigidness + _Time.y * _Frenquency) *  v.color.r);
 	v.vertex.xz += sway * _Sway;
 
 	//Bending

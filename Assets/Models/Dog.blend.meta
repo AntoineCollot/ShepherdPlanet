@@ -6,13 +6,69 @@ ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Armature
+    100004: Chest
+    100006: Cube
+    100008: Foot_BL
+    100010: Foot_BR
+    100012: Foot_FL
+    100014: Foot_FR
+    100016: Head
+    100018: Hips
+    100020: LowerLeg_BL
+    100022: LowerLeg_BR
+    100024: LowerLeg_FL
+    100026: LowerLeg_FR
+    100028: LowerTail
+    100030: Neck
+    100032: UpperLeg_BL
+    100034: UpperLeg_BR
+    100036: UpperLeg_FL
+    100038: UpperLeg_FR
+    100040: UpperTail
+    100042: Mouth
+    100044: Dog
     400000: //RootNode
+    400002: Armature
+    400004: Chest
+    400006: Cube
+    400008: Foot_BL
+    400010: Foot_BR
+    400012: Foot_FL
+    400014: Foot_FR
+    400016: Head
+    400018: Hips
+    400020: LowerLeg_BL
+    400022: LowerLeg_BR
+    400024: LowerLeg_FL
+    400026: LowerLeg_FR
+    400028: LowerTail
+    400030: Neck
+    400032: UpperLeg_BL
+    400034: UpperLeg_BR
+    400036: UpperLeg_FL
+    400038: UpperLeg_FR
+    400040: UpperTail
+    400042: Mouth
+    400044: Dog
     2300000: //RootNode
+    2300002: Cube
     3300000: //RootNode
+    3300002: Cube
     4300000: Cube
+    4300002: Dog
     7400000: Default Take
+    7400002: Idle
+    7400004: Run
     9500000: //RootNode
+    13700000: Cube
+    13700002: Dog
   externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: None__Gradient_Dog_png
+    second: {fileID: 2100000, guid: 4fdbcbb2b070d1441a46f3709ee1abc2, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -43,7 +99,63 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Idle
+      firstFrame: -1
+      lastFrame: 47
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Run
+      takeName: Run
+      firstFrame: -1
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
