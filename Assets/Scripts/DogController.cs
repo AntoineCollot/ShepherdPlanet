@@ -39,9 +39,4 @@ public class DogController : MonoBehaviour {
             transform.Translate(movement,Space.World);
         }
 	}
-
-    void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(target, 0.3f);
-    }
 }

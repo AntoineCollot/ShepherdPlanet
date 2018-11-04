@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 683ae36259619164399336f9fce3ec04
-timeCreated: 1540739404
+timeCreated: 1541358220
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -25,6 +25,10 @@ ModelImporter:
     100034: Crook
     100036: Root
     100038: Shepherd
+    100040: Hand_L
+    100042: Foot_R
+    100044: LowerLeg_R
+    100046: UpperLeg_R
     400000: //RootNode
     400002: Armature
     400004: Bone
@@ -45,6 +49,10 @@ ModelImporter:
     400034: Crook
     400036: Root
     400038: Shepherd
+    400040: Hand_L
+    400042: Foot_R
+    400044: LowerLeg_R
+    400046: UpperLeg_R
     2300000: //RootNode
     2300002: Cube
     3300000: //RootNode
@@ -85,7 +93,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -109,9 +117,9 @@ ModelImporter:
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
@@ -137,9 +145,9 @@ ModelImporter:
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
@@ -191,7 +199,7 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
