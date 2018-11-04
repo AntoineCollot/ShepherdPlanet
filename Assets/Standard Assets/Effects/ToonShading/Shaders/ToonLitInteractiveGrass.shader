@@ -48,7 +48,7 @@ struct Input {
 
 //Bending
 int _BenderCount;
-float2 _BenderPositions[10];
+float2 _BenderPositions[20];
 half _Radius;
 half _Displacement;
 

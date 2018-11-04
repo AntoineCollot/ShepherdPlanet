@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestVertex : MonoBehaviour {
+public class GrassInteractions : MonoBehaviour {
 
     [SerializeField]
     Material mat;
