@@ -15,7 +15,7 @@ public class SheepBoid : MonoBehaviour {
 
     public float maxVelocityFear= 4;
 
-    Vector3 newVelocity;
+    Vector3 targetVelocity;
     Vector3 velocity;
 
     [Header("Cohesion")]
@@ -38,6 +38,13 @@ public class SheepBoid : MonoBehaviour {
     [Header("Escape")]
 
     public float weightEscape = 6;
+
+    Transform predator;
+
+    void Start()
+    {
+        predator = GameObject.FindGameObjectWithTag("Predator").transform;
+    }
 
     /// <summary>
     /// Sigmoid function, used for impact of second multiplier
@@ -166,7 +173,7 @@ public class SheepBoid : MonoBehaviour {
     /// <returns>esc(s) the escape vector</returns>
     Vector3 RuleEscape()
     {
-        Vector3 predatorToSheep = transform.position - Predator.Instance.transform.position;
+        Vector3 predatorToSheep = transform.position - predator.position;
         float predatorToSheepMagnitude = predatorToSheep.magnitude;
         //Change 10 to 2
         return (predatorToSheep / predatorToSheepMagnitude) * Inv(predatorToSheepMagnitude, 2);
@@ -175,14 +182,14 @@ public class SheepBoid : MonoBehaviour {
 
     void ApplyRules()
     {
-        float distanceToPredator = (transform.position - Predator.Instance.transform.position).magnitude;
+        float distanceToPredator = (transform.position - predator.position).magnitude;
 
-        newVelocity = Vector3.zero;
-        newVelocity += RuleCohesion() * CombineWeight(weightCohesionBase, weightCohesionFear, distanceToPredator);
-        newVelocity += RuleSeparation() * CombineWeight(weightSeparationBase, weightSeparationFear, distanceToPredator);
-        newVelocity += RuleAlignment() * CombineWeight(weightAlignmentBase, weightAlignmentFear, distanceToPredator);
-        newVelocity += RuleEscape() * weightEscape;
-        newVelocity += Pen.Instance.RuleEnclosed(transform.position)*3;
+        targetVelocity = Vector3.zero;
+        targetVelocity += RuleCohesion() * CombineWeight(weightCohesionBase, weightCohesionFear, distanceToPredator);
+        targetVelocity += RuleSeparation() * CombineWeight(weightSeparationBase, weightSeparationFear, distanceToPredator);
+        targetVelocity += RuleAlignment() * CombineWeight(weightAlignmentBase, weightAlignmentFear, distanceToPredator);
+        targetVelocity += RuleEscape() * weightEscape;
+        targetVelocity += Pen.Instance.RuleEnclosed(transform.position)*3;
 
         Debug.DrawRay(transform.position, RuleCohesion() * CombineWeight(weightCohesionBase, weightCohesionFear, distanceToPredator), Color.green);
         Debug.DrawRay(transform.position, RuleSeparation() * CombineWeight(weightSeparationBase, weightSeparationFear, distanceToPredator),Color.black);
@@ -191,24 +198,26 @@ public class SheepBoid : MonoBehaviour {
         Debug.DrawRay(transform.position, Pen.Instance.RuleEnclosed(transform.position) *3, Color.cyan);
     }
 
-    // Update is called once per frame
     void Update()
     {
         ApplyRules();
     }
 
+    /// <summary>
+    /// Move the sheep based on the result of the rules
+    /// </summary>
     void Move()
     {
-        float distanceToPredator = (transform.position - Predator.Instance.transform.position).magnitude;
+        float distanceToPredator = (transform.position - predator.position).magnitude;
         float currentMaxVelocity = Mathf.Lerp(maxVelocityBase, maxVelocityFear, 1-(distanceToPredator / flightZoneRadius));
-        newVelocity = Vector3.ClampMagnitude(newVelocity, currentMaxVelocity);
+        targetVelocity = Vector3.ClampMagnitude(targetVelocity, currentMaxVelocity);
 
-        if (newVelocity.magnitude < minVelocity)
-            newVelocity = Vector3.zero;
+        if (targetVelocity.magnitude < minVelocity)
+            targetVelocity = Vector3.zero;
 
-        Debug.DrawRay(transform.position, newVelocity, Color.blue);
+        Debug.DrawRay(transform.position, targetVelocity, Color.blue);
 
-        velocity = newVelocity;
+        velocity = targetVelocity;
 
         transform.Translate(velocity * Time.deltaTime, Space.World);
     }

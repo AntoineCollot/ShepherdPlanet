@@ -13,6 +13,11 @@ public class Pen : MonoBehaviour {
         Instance = this;
     }
 
+    /// <summary>
+    /// Make sure the input position stays inside the pen
+    /// </summary>
+    /// <param name="position">Target position</param>
+    /// <returns>Closest position from the target position inside the pen</returns>
     public Vector3 ClampPositionToPen(Vector3 position)
     {
         Vector3 fromCenter = position - transform.position;
@@ -21,6 +26,11 @@ public class Pen : MonoBehaviour {
         return transform.position + fromCenter;
     }
 
+    /// <summary>
+    /// The herding rule making sure sheeps stay inside the pen
+    /// </summary>
+    /// <param name="sheepPosition">Current position of the sheep</param>
+    /// <returns>Enclosed vector</returns>
     public Vector3 RuleEnclosed(Vector3 sheepPosition)
     {
         Vector3 toCenterOfPen = transform.position - sheepPosition;
