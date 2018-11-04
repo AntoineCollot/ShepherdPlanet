@@ -7,15 +7,26 @@ using UnityEngine;
 /// </summary>
 public class SheepBoid : MonoBehaviour {
 
+    [Tooltip("Minimum distance to a predator at which a sheep starts panicking")]
     public float flightZoneRadius = 7;
 
+    [Tooltip("Velocity under which the sheep do not move")]
     public float minVelocity = 0.1f;
 
+    [Tooltip("Max velocity of the sheep")]
     public float maxVelocityBase = 1;
 
+    [Tooltip("Max velocity of the sheep when a predator is close")]
     public float maxVelocityFear= 4;
 
+    /// <summary>
+    /// Vector created by applying all the herding rules
+    /// </summary>
     Vector3 targetVelocity;
+
+    /// <summary>
+    /// Actual velocity of the sheep
+    /// </summary>
     Vector3 velocity;
 
     [Header("Cohesion")]
@@ -179,28 +190,33 @@ public class SheepBoid : MonoBehaviour {
         return (predatorToSheep / predatorToSheepMagnitude) * Inv(predatorToSheepMagnitude, 2);
     }
 
-
-    void ApplyRules()
+    /// <summary>
+    /// Get the intended velocity of the sheep by applying all the herding rules
+    /// </summary>
+    /// <returns>The resulting vector of all the rules</returns>
+    Vector3 ApplyRules()
     {
         float distanceToPredator = (transform.position - predator.position).magnitude;
 
-        targetVelocity = Vector3.zero;
-        targetVelocity += RuleCohesion() * CombineWeight(weightCohesionBase, weightCohesionFear, distanceToPredator);
-        targetVelocity += RuleSeparation() * CombineWeight(weightSeparationBase, weightSeparationFear, distanceToPredator);
-        targetVelocity += RuleAlignment() * CombineWeight(weightAlignmentBase, weightAlignmentFear, distanceToPredator);
-        targetVelocity += RuleEscape() * weightEscape;
-        targetVelocity += Pen.Instance.RuleEnclosed(transform.position)*3;
+        Vector3 resultingVector = Vector3.zero;
+        resultingVector += RuleCohesion() * CombineWeight(weightCohesionBase, weightCohesionFear, distanceToPredator);
+        resultingVector += RuleSeparation() * CombineWeight(weightSeparationBase, weightSeparationFear, distanceToPredator);
+        resultingVector += RuleAlignment() * CombineWeight(weightAlignmentBase, weightAlignmentFear, distanceToPredator);
+        resultingVector += RuleEscape() * weightEscape;
+        resultingVector += Pen.Instance.RuleEnclosed(transform.position)*3;
 
         Debug.DrawRay(transform.position, RuleCohesion() * CombineWeight(weightCohesionBase, weightCohesionFear, distanceToPredator), Color.green);
         Debug.DrawRay(transform.position, RuleSeparation() * CombineWeight(weightSeparationBase, weightSeparationFear, distanceToPredator),Color.black);
         Debug.DrawRay(transform.position, RuleAlignment() * CombineWeight(weightAlignmentBase, weightAlignmentFear, distanceToPredator), Color.yellow);
         Debug.DrawRay(transform.position, RuleEscape() * weightEscape, Color.red);
         Debug.DrawRay(transform.position, Pen.Instance.RuleEnclosed(transform.position) *3, Color.cyan);
+
+        return resultingVector;
     }
 
     void Update()
     {
-        ApplyRules();
+        targetVelocity = ApplyRules();
     }
 
     /// <summary>
@@ -209,16 +225,24 @@ public class SheepBoid : MonoBehaviour {
     void Move()
     {
         float distanceToPredator = (transform.position - predator.position).magnitude;
+
+        //Clamp the velocity to a maximum that depends on the distance to the predator
         float currentMaxVelocity = Mathf.Lerp(maxVelocityBase, maxVelocityFear, 1-(distanceToPredator / flightZoneRadius));
         targetVelocity = Vector3.ClampMagnitude(targetVelocity, currentMaxVelocity);
 
+        //Ignore the velocity if it's too small
         if (targetVelocity.magnitude < minVelocity)
             targetVelocity = Vector3.zero;
 
+        //Draw the velocity as a blue line coming from the sheep in the scene view
         Debug.DrawRay(transform.position, targetVelocity, Color.blue);
 
         velocity = targetVelocity;
 
+        //Make sure we don't move the sheep verticaly by misstake
+        velocity.y = 0;
+
+        //Move the sheep
         transform.Translate(velocity * Time.deltaTime, Space.World);
     }
 

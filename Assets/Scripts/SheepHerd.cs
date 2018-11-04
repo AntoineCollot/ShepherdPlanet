@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class SheepHerd : MonoBehaviour {
 
+    [Tooltip("List of all the sheeps in the herd")]
     [HideInInspector]
     public SheepBoid[] sheeps;
 
     public static SheepHerd Instance;
 
-	// Use this for initialization
 	void Awake () {
         Instance = this;
 	}
 	
-	// Update is called once per frame
 	void Start () {
+        //Find all sheeps in children
         sheeps = GetComponentsInChildren<SheepBoid>(false);
 	}
 }
