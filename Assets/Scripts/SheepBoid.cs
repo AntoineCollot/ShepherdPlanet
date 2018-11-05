@@ -198,12 +198,12 @@ public class SheepBoid : MonoBehaviour {
     {
         float distanceToPredator = (transform.position - predator.position).magnitude;
 
-        Vector3 resultingVector = Vector3.zero;
-        resultingVector += RuleCohesion() * CombineWeight(weightCohesionBase, weightCohesionFear, distanceToPredator);
-        resultingVector += RuleSeparation() * CombineWeight(weightSeparationBase, weightSeparationFear, distanceToPredator);
-        resultingVector += RuleAlignment() * CombineWeight(weightAlignmentBase, weightAlignmentFear, distanceToPredator);
-        resultingVector += RuleEscape() * weightEscape;
-        resultingVector += Pen.Instance.RuleEnclosed(transform.position)*3;
+        Vector3 v = Vector3.zero;
+        v += RuleCohesion() * CombineWeight(weightCohesionBase, weightCohesionFear, distanceToPredator);
+        v += RuleSeparation() * CombineWeight(weightSeparationBase, weightSeparationFear, distanceToPredator);
+        v += RuleAlignment() * CombineWeight(weightAlignmentBase, weightAlignmentFear, distanceToPredator);
+        v += RuleEscape() * weightEscape;
+        v += Pen.Instance.RuleEnclosed(transform.position)*3;
 
         Debug.DrawRay(transform.position, RuleCohesion() * CombineWeight(weightCohesionBase, weightCohesionFear, distanceToPredator), Color.green);
         Debug.DrawRay(transform.position, RuleSeparation() * CombineWeight(weightSeparationBase, weightSeparationFear, distanceToPredator),Color.black);
@@ -211,7 +211,7 @@ public class SheepBoid : MonoBehaviour {
         Debug.DrawRay(transform.position, RuleEscape() * weightEscape, Color.red);
         Debug.DrawRay(transform.position, Pen.Instance.RuleEnclosed(transform.position) *3, Color.cyan);
 
-        return resultingVector;
+        return v;
     }
 
     void Update()
