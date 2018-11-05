@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Set the movement speed of the animator, and rotate smoothly the objet to make it faces the direction of the movement
+/// </summary>
 public class MovementAnimation : MonoBehaviour {
 
     Vector3 lastPosition;
 
     Animator anim;
 
+    [Tooltip("How smooth should the rotation of the object be when facing another direction")]
     public float smooth;
     Vector3 refMovement;
     Vector3 movement;

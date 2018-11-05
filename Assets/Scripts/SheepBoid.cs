@@ -58,6 +58,7 @@ public class SheepBoid : MonoBehaviour {
     }
 
     /// <summary>
+    /// 3.1
     /// Sigmoid function, used for impact of second multiplier
     /// </summary>
     /// <param name="x">Distance to the predator</param>
@@ -69,6 +70,7 @@ public class SheepBoid : MonoBehaviour {
     }
 
     /// <summary>
+    /// 3.2
     /// Combine the two weights affecting the rules
     /// </summary>
     /// <param name="mult1">first multiplier</param>
@@ -81,6 +83,7 @@ public class SheepBoid : MonoBehaviour {
     }
 
     /// <summary>
+    /// 3.3
     /// In two of the rules, Separation and Escape, nearby objects are prioritized higher than
     ///those further away. This prioritization is described by an inverse square function
     /// </summary>
@@ -97,6 +100,7 @@ public class SheepBoid : MonoBehaviour {
     }
 
     /// <summary>
+    /// 3.4
     /// The Cohesion rule is calculated for each sheep s with position sp. The Cohesion vector
     ///coh(s) is directed towards the average position Sp.The rule vector is calculated
     ///with the function
@@ -119,6 +123,7 @@ public class SheepBoid : MonoBehaviour {
     }
 
     /// <summary>
+    /// 3.5
     /// The Separation rule is calculated for each sheep s with position sp. The contribution
     ///of each nearby sheep si
     ///is determined by the inverse square function of the distance
@@ -146,6 +151,7 @@ public class SheepBoid : MonoBehaviour {
     }
 
     /// <summary>
+    /// 3.6
     /// The Alignment rule is calculated for each sheep s. Each sheep si within a radius of
     ///50 pixels has a velocity siv that contributes equally to the final rule vector.The size
     ///of the rule vector is determined by the velocity of all nearby sheep N.The vector is
@@ -175,6 +181,7 @@ public class SheepBoid : MonoBehaviour {
     }
 
     /// <summary>
+    /// 3.8
     /// The Escape rule is calculated for each sheep s with a position sp. The size of the
     ///rule vector is determined by inverse square function(3.3) of the distance between
     ///the sheep and predator p with a softness factor of 10. The rule vector is directed
@@ -191,6 +198,7 @@ public class SheepBoid : MonoBehaviour {
     }
 
     /// <summary>
+    /// 3.9
     /// Get the intended velocity of the sheep by applying all the herding rules
     /// </summary>
     /// <returns>The resulting vector of all the rules</returns>
@@ -218,6 +226,8 @@ public class SheepBoid : MonoBehaviour {
     {
         targetVelocity = ApplyRules();
     }
+
+    #region Move
 
     /// <summary>
     /// Move the sheep based on the result of the rules
@@ -250,4 +260,5 @@ public class SheepBoid : MonoBehaviour {
     {
         Move();
      }
+    #endregion
 }
