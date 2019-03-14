@@ -165,6 +165,7 @@ public class SheepBoid : MonoBehaviour {
     Vector3 RuleAlignment()
     {
         Vector3 alignmentVector = Vector3.zero;
+        int nearbySheepCount = 0;
 
         foreach(SheepBoid sheep in SheepHerd.Instance.sheeps)
         {
@@ -174,10 +175,14 @@ public class SheepBoid : MonoBehaviour {
             if (Vector3.Distance(sheep.transform.position,transform.position)<= alignementZoneRadius)
             {
                 alignmentVector += sheep.velocity;
+                nearbySheepCount++;
             }
         }
 
-        return alignmentVector/ (SheepHerd.Instance.sheeps.Length-1);
+        if (nearbySheepCount > 0)
+            return alignmentVector / nearbySheepCount;
+        else
+            return Vector3.zero;
     }
 
     /// <summary>
